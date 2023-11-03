@@ -13,7 +13,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "chaos-dashboard.k8s.raj.ninja"
+    - "chaos-dashboard.k8s.pedrotti.me"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -22,7 +22,7 @@ metadata:
   namespace: chaos-testing
 spec:
   hosts:
-  - "chaos-dashboard.k8s.raj.ninja"
+  - "chaos-dashboard.k8s.pedrotti.me"
   gateways:
   - chaos-dashboard-gateway
   http:

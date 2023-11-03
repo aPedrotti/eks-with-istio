@@ -204,7 +204,7 @@ resource "helm_release" "kiali-server" {
 
   set {
     name  = "server.web_fqdn"
-    value = "kiali.k8s.raj.ninja"
+    value = "kiali.k8s.pedrotti.me"
   }
 
   set {

@@ -138,7 +138,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "chip.k8s.raj.ninja"
+    - "chip.k8s.pedrotti.me"
     - "chip.chip.svc.cluster.local"
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -149,7 +149,7 @@ metadata:
 spec:
   hosts:
   - "chip.chip.svc.cluster.local"
-  - "chip.k8s.raj.ninja"
+  - "chip.k8s.pedrotti.me"
   gateways:
   - chip-gateway
   http:

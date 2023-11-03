@@ -14,7 +14,7 @@ spec:
       protocol: HTTP
     hosts:
     - "argo-rollouts-dashboard"
-    - "dashboard-argo.k8s.raj.ninja"
+    - "dashboard-argo.k8s.pedrotti.me"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -24,7 +24,7 @@ metadata:
 spec:
   hosts:
   -  "argo-rollouts-dashboard"
-  -  "dashboard-argo.k8s.raj.ninja"
+  -  "dashboard-argo.k8s.pedrotti.me"
   gateways:
   - argo-dashboard
   http:

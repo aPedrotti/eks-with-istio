@@ -120,7 +120,7 @@ variable "enable_cross_zone_load_balancing" {
 
 variable "cluster_private_zone" {
   type    = string
-  default = "k8s.cluster"
+  default = "devops.cluster.local"
 }
 
 
@@ -146,17 +146,17 @@ variable "istio_ingress_max_pods" {
 
 variable "grafana_virtual_service_host" {
   type    = string
-  default = "grafana.k8s.raj.ninja"
+  default = "grafana.k8s.pedrotti.me"
 }
 
 variable "kiali_virtual_service_host" {
   type    = string
-  default = "kiali.k8s.raj.ninja"
+  default = "kiali.k8s.pedrotti.me"
 }
 
 variable "jaeger_virtual_service_host" {
   type    = string
-  default = "jaeger.k8s.raj.ninja"
+  default = "jaeger.k8s.pedrotti.me"
 }
 
 
