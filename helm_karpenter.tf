@@ -58,7 +58,7 @@ resource "kubectl_manifest" "karpenter_template" {
       EKS_CLUSTER = var.cluster_name,
       EKS_SUBNETS = join(", ", [
         aws_subnet.private_subnet_1a.id,
-        aws_subnet.private_subnet_1b.id,
+        #aws_subnet.private_subnet_1b.id,
         aws_subnet.private_subnet_1c.id
       ])
       LAUNCH_TEMPLATE = format("%s-karpenter", var.cluster_name)

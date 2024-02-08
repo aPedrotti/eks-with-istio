@@ -1,4 +1,10 @@
 terraform {
+  cloud {
+    organization = "pedrotti"
+    workspaces {
+      name = "eks"
+    }  
+  }
   required_providers {
     aws = {
       source  = "aws"
@@ -33,20 +39,14 @@ provider "aws" {
 
 provider "helm" {
   kubernetes {
-    host                   =  aws_eks_cluster.eks_cluster.endpoint
-    cluster_ca_certificate =  base64decode(aws_eks_cluster.eks_cluster.certificate_authority.0.data)
-    token                  =  data.aws_eks_cluster_auth.default.token 
+    config_path = "/home/andre/.kube/config"
   }
 }
 
 provider "kubernetes" {
-  host                   =  aws_eks_cluster.eks_cluster.endpoint
-  cluster_ca_certificate =  base64decode(aws_eks_cluster.eks_cluster.certificate_authority.0.data)
-  token                  =  data.aws_eks_cluster_auth.default.token 
+  config_path = "/home/andre/.kube/config"
 }
 
 provider "kubectl" {
-  host                   = aws_eks_cluster.eks_cluster.endpoint
-  cluster_ca_certificate = base64decode(aws_eks_cluster.eks_cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.default.token
+ config_path = "/home/andre/.kube/config"
 }

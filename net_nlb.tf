@@ -5,7 +5,7 @@ resource "aws_lb" "ingress" {
 
     subnets            = [
         aws_subnet.public_subnet_1a.id,
-        aws_subnet.public_subnet_1b.id,
+        #aws_subnet.public_subnet_1b.id,
         aws_subnet.public_subnet_1c.id
     ]
 

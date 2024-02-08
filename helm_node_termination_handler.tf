@@ -1,4 +1,9 @@
 resource "helm_release" "node_termination_handler" {
+  depends_on = [
+        aws_eks_cluster.eks_cluster,
+        aws_eks_node_group.cluster,
+        kubernetes_config_map.aws-auth
+    ]
   count     = var.node_termination_handler_toggle ? 1 : 0
   name      = "aws-node-termination-handler"
   namespace = "kube-system"

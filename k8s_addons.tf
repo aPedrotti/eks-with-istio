@@ -1,3 +1,8 @@
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon
+# https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
+# https://docs.aws.amazon.com/eks/latest/userguide/eks-networking-add-ons.html
+
+
 resource "aws_eks_addon" "cni" {
   cluster_name      = aws_eks_cluster.eks_cluster.name
   addon_name        = "vpc-cni"

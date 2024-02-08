@@ -26,9 +26,9 @@ variable "nodes_instances_sizes" {
 
 variable "auto_scale_options" {
   default = {
-    min     = 4
+    min     = 2
     max     = 10
-    desired = 6
+    desired = 3
   }
 }
 
@@ -80,7 +80,7 @@ variable "karpenter_availability_zones" {
   description = "Availability zones to launch nodes"
   default = [
     "us-east-1a",
-    "us-east-1b",
+    #"us-east-1b",
     "us-east-1c"
   ]
 }
@@ -113,6 +113,66 @@ variable "enable_cross_zone_load_balancing" {
   type    = bool
   default = false
 }
+
+###  NETWORKING  ###
+
+variable "cluster_vpc_cidr" {
+  type = string
+  default = "10.0.0.0/16"
+}
+
+variable "pods_vpc_cidr" {
+  type = string
+  default = "11.0.0.0/16"
+}
+
+variable "private_subnet_1a_cidr" {
+  type = string
+  default = "10.0.48.0/20"
+}
+
+variable "private_subnet_1b_cidr" {
+  type = string
+  default = "10.0.64.0/20"
+}
+
+variable "private_subnet_1c_cidr" {
+  type = string
+  default = "10.0.80.0/20"
+}
+
+
+variable "pods_subnet_1a_cidr" {
+  type = string
+  default = "11.0.0.0/20"
+}
+
+variable "pods_subnet_1b_cidr" {
+  type = string
+  default = "11.0.16.0/20"
+}
+
+variable "pods_subnet_1c_cidr" {
+  type = string
+  default = "11.0.32.0/20"
+}
+
+variable "public_subnet_1a_cidr" {
+  type = string
+  default = "10.0.0.0/20"
+}
+
+variable "public_subnet_1b_cidr" {
+  type = string
+  default = "10.0.16.0/20"
+}
+
+variable "public_subnet_1c_cidr" {
+  type = string
+  default = "10.0.32.0/20"
+}
+
+
 
 #########################
 ###  ROUTE53 CONFIGS  ###
@@ -201,7 +261,7 @@ variable "keda_toggle" {
 variable "addon_cni_version" {
   type        = string
   description = "VPC CNI Version"
-  default     = "v1.14.1-eksbuild.1"
+  default     = "v1.15.1-eksbuild.1"
 }
 
 variable "addon_coredns_version" {
@@ -224,8 +284,10 @@ variable "addon_csi_version" {
 
 variable "default_tags" {
   default = {
-    Environment = "prod"
+    environment = "dev"
+    managedBy   = "terraform"
     Foo         = "Bar"
     Ping        = "Pong"
+
   }
 }

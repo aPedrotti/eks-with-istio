@@ -1,5 +1,15 @@
 
+resource "aws_cloudwatch_log_group" "eks_log_group" {
+  # The log group name format is /aws/eks/<cluster-name>/cluster
+  # Reference: https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html
+  name              = "/aws/eks/${var.cluster_name}/cluster"
+  retention_in_days = 14
+
+  # ... potentially other configuration ...
+}
+
 resource "aws_eks_cluster" "eks_cluster" {
+    depends_on = [aws_cloudwatch_log_group.eks_log_group]
 
     name        = var.cluster_name
     version     = var.k8s_version
@@ -14,7 +24,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 
         subnet_ids = [
             aws_subnet.private_subnet_1a.id,
-            aws_subnet.private_subnet_1b.id,
+            #aws_subnet.private_subnet_1b.id,
             aws_subnet.private_subnet_1c.id
         ]
 
@@ -31,11 +41,14 @@ resource "aws_eks_cluster" "eks_cluster" {
         "api", "audit", "authenticator", "controllerManager", "scheduler"
     ]
 
-    tags = {
-        "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-        "k8s.io/cluster-autoscaler/${var.cluster_name}" = "owned",
-        "k8s.io/cluster-autoscaler/enabled" = true        
-    }
+    tags = merge(
+        var.default_tags,
+        {
+            "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+            "k8s.io/cluster-autoscaler/${var.cluster_name}" = "owned",
+            "k8s.io/cluster-autoscaler/enabled" = true        
+        }
+    )
 
 }
 
@@ -51,10 +64,12 @@ resource "aws_security_group" "cluster_sg" {
         cidr_blocks = [ "0.0.0.0/0" ]
     }
 
-    tags = {
-        Name = format("%s-sg", var.cluster_name)
-    }
-
+    tags = merge(
+        var.default_tags,
+        {
+            Name = format("%s-sg", var.cluster_name)
+        }
+    )
 }
 
 resource "aws_security_group_rule" "cluster_ingress_https" {

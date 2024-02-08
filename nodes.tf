@@ -6,7 +6,7 @@ resource "aws_eks_node_group" "cluster" {
 
     subnet_ids = [
         aws_subnet.private_subnet_1a.id,
-        aws_subnet.private_subnet_1b.id,
+        #aws_subnet.private_subnet_1b.id,
         aws_subnet.private_subnet_1c.id
     ]
 
